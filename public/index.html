@@ -1,89 +1,873 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leish Studio - Professional Studio Booking</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+import { initializeApp } from 'firebase/app';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.7.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.7.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAJW5673PRnn7dT5UxQnSIjOOYWgmLTImI", // Will use env variables from your file
+  authDomain: "leish.web.app",
+  projectId: "leish-ad836",
+};
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const functions = getFunctions(app);
+
+// AUTOMATION: Detect local environment and switch to Emulators
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+  console.log("🛠️ Using Firebase Emulators for testing");
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+}
+<style>
+:root {
+  --bg-primary: #0a0a12;
+  --bg-secondary: #12121f;
+  --bg-card: #16162a;
+  --bg-card-hover: #1e1e3a;
+  --accent: #e94560;
+  --accent-glow: rgba(233, 69, 96, 0.4);
+  --accent-secondary: #7c3aed;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(233, 69, 96, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-section {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  position: relative;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  max-width: 600px;
+  animation: fadeInUp 0.8s ease 0.2s backwards;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  animation: fadeInUp 0.8s ease 0.4s backwards;
+}
+
+.hero-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.hero-feature {
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease backwards;
+}
+
+.hero-feature:nth-child(1) { animation-delay: 0.5s; }
+.hero-feature:nth-child(2) { animation-delay: 0.6s; }
+.hero-feature:nth-child(3) { animation-delay: 0.7s; }
+
+.hero-feature:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+.hero-feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-feature-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-feature-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.logo-text {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #d63d55);
+  color: white;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px var(--accent-glow);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 1rem;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid var(--border);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s ease;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.modal-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-family: 'Outfit', sans-serif;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.social-login-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.social-btn {
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.social-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+}
+
+.social-btn i {
+  font-size: 1.25rem;
+}
+
+.social-btn.google { color: #DB4437; }
+.social-btn.apple { color: #fff; }
+
+.modal-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.modal-footer button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toast {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: slideIn 0.3s ease forwards;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  min-width: 300px;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.toast.success { border-left: 4px solid var(--success); }
+.toast.error { border-left: 4px solid var(--accent); }
+.toast.info { border-left: 4px solid #3b82f6; }
+.toast.warning { border-left: 4px solid var(--warning); }
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-features {
+    grid-template-columns: 1fr;
+  }
+
+  .social-login-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+</style>
+</head>
+
+<body>
+<div class="bg-gradient"></div>
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="container">
+  <header class="header">
+    <div class="logo" onclick="window.location.reload()">
+      <div class="logo-icon"><i class="fas fa-film"></i></div>
+      <span class="logo-text">Leish Studio</span>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <div class="header-actions" id="headerActions">
+      <button class="btn btn-ghost" title="Home">
+        <i class="fas fa-home"></i>
+      </button>
+      <button class="btn btn-ghost" onclick="openAdminLogin()" title="Admin Access">
+        <i class="fas fa-shield-alt"></i>
+      </button>
+      <button class="btn btn-primary" onclick="openAuth()">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </div>
+  </header>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+  <div class="hero-section">
+    <h1 class="hero-title">Book Your Creative Space</h1>
+    <p class="hero-subtitle">Professional studio facilities with state-of-the-art equipment. Perfect for podcasts, interviews, and content creation.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary btn-lg" onclick="openAuth()">
+        <i class="fas fa-calendar-plus"></i> Book Now
+      </button>
+      <button class="btn btn-secondary btn-lg">
+        <i class="fas fa-images"></i> View Gallery
+      </button>
+    </div>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
+    <div class="hero-features">
+      <div class="hero-feature">
+        <div class="hero-feature-icon">🎥</div>
+        <h3 class="hero-feature-title">Pro Equipment</h3>
+        <p class="hero-feature-desc">Access to professional cameras, lighting, microphones, and more</p>
+      </div>
+      <div class="hero-feature">
+        <div class="hero-feature-icon">⚡</div>
+        <h3 class="hero-feature-title">Instant Booking</h3>
+        <p class="hero-feature-desc">Real-time availability and instant confirmation for your sessions</p>
+      </div>
+      <div class="hero-feature">
+        <div class="hero-feature-icon">💰</div>
+        <h3 class="hero-feature-title">Flexible Pricing</h3>
+        <p class="hero-feature-desc">Hourly rates, recurring discounts, and promotional offers available</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuth()"><i class="fas fa-times"></i></button>
+    <h2 class="modal-title" id="authTitle">Welcome to Leish Studio</h2>
+    <p class="modal-subtitle">Professional studio booking for creatives</p>
+    
+    <div class="social-login-grid">
+      <button class="social-btn google" type="button" onclick="socialLogin('google')">
+        <i class="fab fa-google"></i> Google
+      </button>
+      <button class="social-btn apple" type="button" onclick="socialLogin('apple')">
+        <i class="fab fa-apple"></i> Apple
+      </button>
+    </div>
+
+    <div class="divider">or sign in with email</div>
+
+    <form onsubmit="handleAuth(event)">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="emailInput" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="passwordInput" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;">
+        <i class="fas fa-sign-in-alt"></i> <span id="authBtnText">Sign In</span>
+      </button>
+    </form>
+
+    <div class="modal-footer">
+      <span id="switchText">Don't have an account?</span>
+      <button type="button" onclick="toggleAuthMode()" id="switchBtn">Sign Up</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="modal-overlay" id="adminLoginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAdminLogin()"><i class="fas fa-times"></i></button>
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #f4d03f, #f39c12); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <h2 class="modal-title" style="margin-bottom: 0.5rem;">Admin Access</h2>
+      <p class="modal-subtitle">Secure authentication required</p>
+    </div>
+    
+    <form onsubmit="handleAdminLogin(event)">
+      <div class="form-group">
+        <label class="form-label">Admin Email</label>
+        <input type="email" class="form-input" id="adminEmail" placeholder="admin@leishstudio.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Admin Password</label>
+        <input type="password" class="form-input" id="adminPassword" placeholder="Enter secure password" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%;">
+        <i class="fas fa-sign-in-alt"></i> Access Admin Panel
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Configuration - REPLACE WITH YOUR VALUES
+const CONFIG = {
+  adminEmail: '', // Set via Firebase env config after deployment
+  adminPasswordHash: '', // Store hashed password in Firebase
+  apiEndpoint: '/api' // Will be your Firebase Functions endpoint
+};
+
+// Global State
+let currentUser = null;
+let authMode = 'login';
+
+// Auth Functions
+function openAuth() {
+  document.getElementById('authModal').classList.add('active');
+}
+
+function closeAuth() {
+  document.getElementById('authModal').classList.remove('active');
+}
+
+function openAdminLogin() {
+  document.getElementById('adminLoginModal').classList.add('active');
+}
+
+function closeAdminLogin() {
+  document.getElementById('adminLoginModal').classList.remove('active');
+}
+
+function toggleAuthMode() {
+  authMode = authMode === 'login' ? 'signup' : 'login';
+  document.getElementById('authTitle').textContent = authMode === 'login' ? 'Welcome Back' : 'Create Your Account';
+  document.getElementById('authBtnText').textContent = authMode === 'login' ? 'Sign In' : 'Sign Up';
+  document.getElementById('switchText').textContent = authMode === 'login' ? "Don't have an account?" : "Already have an account?";
+  document.getElementById('switchBtn').textContent = authMode === 'login' ? 'Sign Up' : 'Sign In';
+}
+
+async function handleAuth(event) {
+  event.preventDefault();
+  
+  const email = document.getElementById('emailInput').value;
+  const password = document.getElementById('passwordInput').value;
+
+  if (!email || !password) {
+    showToast('Please fill in all fields', 'error');
+    return;
+  }
+
+  // TODO: Replace with Firebase Authentication
+  showToast('Firebase auth not configured. Add your credentials.', 'warning');
+  
+  // Demo: Simulate successful login
+  currentUser = {
+    id: 'user-' + Date.now(),
+    name: email.split('@')[0],
+    email: email
+  };
+
+  closeAuth();
+  showToast(`Welcome! Authentication will work after Firebase setup.`, 'info');
+}
+
+async function handleAdminLogin(event) {
+  event.preventDefault();
+  
+  const email = document.getElementById('adminEmail').value;
+  const password = document.getElementById('adminPassword').value;
+
+  // TODO: Replace with secure Firebase Admin SDK authentication
+  // NEVER store passwords in frontend code
+  showToast('Configure Firebase Admin authentication', 'warning');
+  
+  if (!CONFIG.adminEmail) {
+    showToast('Admin credentials not configured. Set in Firebase config.', 'error');
+    return;
+  }
+
+  // Placeholder for secure backend validation
+  closeAdminLogin();
+  showToast('Admin auth ready for Firebase integration', 'info');
+}
+
+function socialLogin(provider) {
+  showToast(`${provider} login - Add Firebase ${provider} auth`, 'info');
+  
+  // TODO: Implement Firebase Social Authentication
+  // Example for Google:
+  // const provider = new firebase.auth.GoogleAuthProvider();
+  // firebase.auth().signInWithPopup(provider)
+}
+
+// Toast Notifications
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+
+  const icon = type === 'success' ? 'check-circle' :
+               type === 'error' ? 'exclamation-circle' :
+               type === 'warning' ? 'exclamation-triangle' :
+               'info-circle';
+
+  toast.innerHTML = `
+    <i class="fas fa-${icon}"></i>
+    <span>${message}</span>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = 'slideIn 0.3s ease reverse forwards';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+// Close modals on outside click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
+    }
+  });
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('🎬 Leish Studio loaded');
+  console.log('⚠️  Configure Firebase credentials to enable authentication');
+});
+</script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js";
+
+  // Configuration using your actual project details
+  const firebaseConfig = {
+    apiKey: "AIzaSyAJW5673PRnn7dT5UxQnSIjOOYWgmLTImI",
+    authDomain: "leish-ad836.firebaseapp.com",
+    projectId: "leish-ad836",
+    storageBucket: "leish-ad836.appspot.com",
+    messagingSenderId: "563584335869",
+    appId: "1:563584335869:web:your_app_id" // Update this from Firebase Console
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const functions = getFunctions(app);
+
+  // --- Auth Logic ---
+  window.handleAuth = async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    const password = document.getElementById('passwordInput').value;
+    const btnText = document.getElementById('authBtnText');
+
+    try {
+      btnText.innerText = "Processing...";
+      if (authMode === 'login') {
+        await signInWithEmailAndPassword(auth, email, password);
+        showToast("Logged in successfully!", "success");
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+        showToast("Account created!", "success");
+      }
+      closeAuth();
+    } catch (error) {
+      showToast(error.message, "error");
+    } finally {
+      btnText.innerText = authMode === 'login' ? 'Sign In' : 'Sign Up';
+    }
+  };
+
+  window.socialLogin = async (providerName) => {
+    if (providerName === 'google') {
+      const provider = new GoogleAuthProvider();
+      try {
+        await signInWithPopup(auth, provider);
+        showToast("Google login successful", "success");
+        closeAuth();
+      } catch (error) {
+        showToast(error.message, "error");
+      }
+    }
+  };
+
+  // --- senangPay Booking Logic ---
+  window.startBooking = async () => {
+    if (!auth.currentUser) {
+      showToast("Please sign in to book a station", "warning");
+      openAuth();
+      return;
+    }
+
+    try {
+      showToast("Generating secure payment link...", "info");
+      const getHash = httpsCallable(functions, 'getSenangPayHash');
+      
+      // Request hash from your Firebase Function
+      const response = await getHash({
+        detail: 'Station A, Station B, and Studio Booking',
+        amount: '200.00',
+        orderId: 'LEISH' + Date.now()
       });
-    </script>
-  </body>
+
+      const { sha256Hash, orderId } = response.data;
+      const merchantId = 'YOUR_MERCHANT_ID'; // Replace with your senangPay ID
+
+      // Redirect to senangPay Sandbox
+      const url = `https://sandbox.senangpay.my/payment/${merchantId}?detail=StudioBooking&amount=200.00&order_id=${orderId}&hash=${sha256Hash}`;
+      window.location.href = url;
+
+    } catch (error) {
+      showToast("Booking failed: " + error.message, "error");
+    }
+  };
+
+  // Monitor Auth State
+  onAuthStateChanged(auth, (user) => {
+    const headerActions = document.getElementById('headerActions');
+    if (user) {
+      headerActions.innerHTML = `
+        <span class="mr-4 text-sm">${user.email}</span>
+        <button class="btn btn-secondary" onclick="signOut(auth)">Sign Out</button>
+      `;
+    }
+  });
+</script>
+
+</body>
 </html>
