@@ -1,0 +1,59 @@
+version: 2
+schema:
+  - name: users
+    columns:
+      - name: id
+        type: uuid
+        primary: true
+        default: gen_random_uuid()
+      - name: email
+        type: text
+        notNull: true
+        unique: true
+      - name: password_hash
+        type: text
+      - name: provider
+        type: text
+      - name: created_at
+        type: timestamptz
+        default: now()
+    indexes:
+      - name: users_email_idx
+        columns: [email]
+        unique: true
+
+  - name: bookings
+    columns:
+      - name: id
+        type: uuid
+        primary: true
+        default: gen_random_uuid()
+      - name: user_id
+        type: uuid
+        notNull: true
+      - name: studio_id
+        type: uuid
+        notNull: true
+      - name: starts_at
+        type: timestamptz
+        notNull: true
+      - name: ends_at
+        type: timestamptz
+        notNull: true
+      - name: status
+        type: text
+        default: 'pending'
+      - name: price
+        type: numeric
+      - name: discount_code
+        type: text
+    foreignKeys:
+      - name: bookings_user_fk
+        columns: [user_id]
+        references: { table: users, columns: [id], onDelete: cascade }
+      - name: bookings_studio_fk
+        columns: [studio_id]
+        references: { table: studios, columns: [id], onDelete: cascade }
+    constraints:
+      - name: bookings_time_chk
+        raw: "CHECK (ends_at > starts_at)"

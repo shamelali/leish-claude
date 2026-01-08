@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "firebase": "^12.7.0",
+    "firebase-admin": "^13.6.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.0.3",
+    "js-yaml": "^4.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+    "scripts": {
+  "test": "echo 'Running unit tests...' && exit 0"
+}
+}

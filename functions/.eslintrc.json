@@ -1,0 +1,7 @@
+{
+  "extends": "google",
+  "rules": {
+    "indent": ["error", 4],
+    "linebreak-style": ["error", "windows"]
+  }
+}

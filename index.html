@@ -8,7 +8,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+import { initializeApp } from 'firebase/app';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 
+const firebaseConfig = {
+  apiKey: "YOUR_VITE_FIREBASE_API_KEY", // Will use env variables from your file
+  authDomain: "leish-ad836.firebaseapp.com",
+  projectId: "leish-ad836",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const functions = getFunctions(app);
+
+// AUTOMATION: Detect local environment and switch to Emulators
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+  console.log("🛠️ Using Firebase Emulators for testing");
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+}
 <style>
 :root {
   --bg-primary: #0a0a12;
@@ -741,6 +760,113 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('🎬 Leish Studio loaded');
   console.log('⚠️  Configure Firebase credentials to enable authentication');
 });
+</script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js";
+
+  // Configuration using your actual project details
+  const firebaseConfig = {
+    apiKey: "AIzaSyAJW5673PRnn7dT5UxQnSIjOOYWgmLTImI",
+    authDomain: "leish-ad836.firebaseapp.com",
+    projectId: "leish-ad836",
+    storageBucket: "leish-ad836.appspot.com",
+    messagingSenderId: "563584335869",
+    appId: "1:563584335869:web:your_app_id" // Update this from Firebase Console
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const functions = getFunctions(app);
+
+  // --- Auth Logic ---
+  window.handleAuth = async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    const password = document.getElementById('passwordInput').value;
+    const btnText = document.getElementById('authBtnText');
+
+    try {
+      btnText.innerText = "Processing...";
+      if (authMode === 'login') {
+        await signInWithEmailAndPassword(auth, email, password);
+        showToast("Logged in successfully!", "success");
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+        showToast("Account created!", "success");
+      }
+      closeAuth();
+    } catch (error) {
+      showToast(error.message, "error");
+    } finally {
+      btnText.innerText = authMode === 'login' ? 'Sign In' : 'Sign Up';
+    }
+  };
+
+  window.socialLogin = async (providerName) => {
+    if (providerName === 'google') {
+      const provider = new GoogleAuthProvider();
+      try {
+        await signInWithPopup(auth, provider);
+        showToast("Google login successful", "success");
+        closeAuth();
+      } catch (error) {
+        showToast(error.message, "error");
+      }
+    }
+  };
+
+  // --- senangPay Booking Logic ---
+  window.startBooking = async () => {
+    if (!auth.currentUser) {
+      showToast("Please sign in to book a station", "warning");
+      openAuth();
+      return;
+    }
+
+    try {
+      showToast("Generating secure payment link...", "info");
+      const getHash = httpsCallable(functions, 'getSenangPayHash');
+      
+      // Request hash from your Firebase Function
+      const response = await getHash({
+        detail: 'Station A, Station B, and Studio Booking',
+        amount: '200.00',
+        orderId: 'LEISH' + Date.now()
+      });
+
+      const { sha256Hash, orderId } = response.data;
+      const merchantId = 'YOUR_MERCHANT_ID'; // Replace with your senangPay ID
+
+      // Redirect to senangPay Sandbox
+      const url = `https://sandbox.senangpay.my/payment/${merchantId}?detail=StudioBooking&amount=200.00&order_id=${orderId}&hash=${sha256Hash}`;
+      window.location.href = url;
+
+    } catch (error) {
+      showToast("Booking failed: " + error.message, "error");
+    }
+  };
+
+  // Monitor Auth State
+  onAuthStateChanged(auth, (user) => {
+    const headerActions = document.getElementById('headerActions');
+    if (user) {
+      headerActions.innerHTML = `
+        <span class="mr-4 text-sm">${user.email}</span>
+        <button class="btn btn-secondary" onclick="signOut(auth)">Sign Out</button>
+      `;
+    }
+  });
 </script>
 
 </body>
