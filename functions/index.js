@@ -1,9 +1,27 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const crypto = require("crypto");
+const fs = require("fs");
+const path = require("path");
 
-// Initialize Admin SDK once at the top
-admin.initializeApp();
+// Initialize Admin SDK once at the top.
+// If running locally you can set SERVICE_ACCOUNT_PATH env var to a
+// service account JSON file path. In production (Cloud Functions)
+// the default credentials will be used and you should NOT provide
+// a service account file.
+let adminInitialized = false;
+if (process.env.SERVICE_ACCOUNT_PATH) {
+    const svcPath = path.resolve(process.env.SERVICE_ACCOUNT_PATH);
+    if (fs.existsSync(svcPath)) {
+        // Do not commit service account JSON to source control.
+        const serviceAccount = require(svcPath);
+        admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+        adminInitialized = true;
+    }
+}
+if (!adminInitialized) {
+    admin.initializeApp();
+}
 
 /**
  * checkAdmin function
