@@ -17,9 +17,23 @@
     ]
   },
   "emulators": {
-    "auth": { "port": 9099 },
-    "functions": { "port": 5001 },
-    "hosting": { "port": 5000 },
-    "ui": { "enabled": true }
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    }
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "asia-southeast1",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }

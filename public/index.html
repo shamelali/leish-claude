@@ -1,89 +1,1436 @@
+apiKey:_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",Id: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECTspot.com",
+  messagingSenderISENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+``` get your Firebase credentials:
+1. Go to [Firebase Console](https://console.firebase.google.com)
+2. Select your project (`ish-ad836`)
+3. Click⚙️ Settings** → **Project Settings**
+4. Scroll to **Web app** (or add one)
+5. Copy the config values
+
+### Also in Firebase Console:
+-Authentication** → **Sign-in method** → Enable **Email/Password** and **Google**Firestore Database** → Create database (start in mode for development)
+
+Would you like me to help anything else, such as Firestore security rules or additional features?
+
+
+
+---
+
+```html
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leish Studio - Professional Studio Booking</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.7.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.7.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.7.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<style>
+:root {
+  --bg-primary: #0a0a12;
+  --bg-secondary: #12121f;
+  --bg-card: #16162a;
+  --bg-card-hover: #1e1e3a;
+  --accent: #e94560;
+  --accent-glow: rgba(233, 69, 96, 0.4);
+  --accent-secondary: #7c3aed;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(233, 69, 96, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Firebase Status Banner */
+.firebase-status {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.firebase-status.connected {
+  background: linear-gradient(90deg, #065f46, #047857);
+  color: #a7f3d0;
+}
+
+.firebase-status.disconnected {
+  background: linear-gradient(90deg, #7f1d1d, #991b1b);
+  color: #fecaca;
+}
+
+.firebase-status.loading {
+  background: linear-gradient(90deg, #78350f, #92400e);
+  color: #fde68a;
+}
+
+body.has-status-banner {
+  padding-top: 44px;
+}
+
+.hero-section {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  max-width: 600px;
+  animation: fadeInUp 0.8s ease 0.2s backwards;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  animation: fadeInUp 0.8s ease 0.4s backwards;
+}
+
+.hero-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.hero-feature {
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease backwards;
+}
+
+.hero-feature:nth-child(1) { animation-delay: 0.5s; }
+.hero-feature:nth-child(2) { animation-delay: 0.6s; }
+.hero-feature:nth-child(3) { animation-delay: 0.7s; }
+
+.hero-feature:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+.hero-feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-feature-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-feature-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.logo-text {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #d63d55);
+  color: white;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px var(--accent-glow);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-card-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+.btn-google {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.btn-google:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.section {
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.section-title i {
+  color: var(--accent);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 1rem;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid var(--border);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s ease;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.modal-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: 'Outfit', sans-serif;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 0.25rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.875rem;
+}
+
+.auth-tab.active {
+  background: var(--accent);
+  color: white;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider span {
+  padding: 0 1rem;
+}
+
+.toast-container {
+  position: fixed;
+  top: 60px;
+  right: 1rem;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toast {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: slideIn 0.3s ease forwards;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  min-width: 300px;
+  max-width: 400px;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast.success { border-left: 4px solid var(--success); }
+.toast.error { border-left: 4px solid var(--danger); }
+.toast.info { border-left: 4px solid #3b82f6; }
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.3;
+}
+
+/* Booking Cards */
+.booking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.booking-card {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.booking-date {
+  font-size: 0.875rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.booking-time {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.booking-studio {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.booking-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.booking-status.confirmed {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--success);
+}
+
+.booking-status.pending {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--warning);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Quick Book Section */
+.quick-book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.studio-option {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.studio-option:hover {
+  border-color: var(--accent);
+}
+
+.studio-option.selected {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.1);
+}
+
+.studio-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.studio-name {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.studio-price {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-features {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .user-info {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+
+<body class="has-status-banner">
+<div id="firebaseStatus" class="firebase-status loading">
+  <div class="spinner"></div>
+  <span>Connecting to Firebase...</span>
+</div>
+
+<div class="bg-gradient"></div>
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="container">
+  <header class="header">
+    <div class="logo" onclick="showLanding()">
+      <div class="logo-icon"><i class="fas fa-film"></i></div>
+      <span class="logo-text">Leish Studio</span>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <div class="header-actions" id="headerActions">
+      <button class="btn btn-primary" onclick="openAuth()">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </div>
+  </header>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+  <div id="landingPage">
+    <div class="hero-section">
+      <h1 class="hero-title">Book Your Creative Space</h1>
+      <p class="hero-subtitle">Professional studio facilities with state-of-the-art equipment. Perfect for podcasts, interviews, and content creation.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" onclick="openAuth()">
+          <i class="fas fa-calendar-plus"></i> Book Now
+        </button>
+        <button class="btn btn-secondary btn-lg" onclick="showToast('Gallery coming soon!', 'info')">
+          <i class="fas fa-images"></i> View Gallery
+        </button>
+      </div>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
+      <div class="hero-features">
+        <div class="hero-feature">
+          <div class="hero-feature-icon">🎥</div>
+          <h3 class="hero-feature-title">Pro Equipment</h3>
+          <p class="hero-feature-desc">Access to professional cameras, lighting, microphones, and more</p>
+        </div>
+        <div class="hero-feature">
+          <div class="hero-feature-icon">⚡</div>
+          <h3 class="hero-feature-title">Instant Booking</h3>
+          <p class="hero-feature-desc">Real-time availability and instant confirmation for your sessions</p>
+        </div>
+        <div class="hero-feature">
+          <div class="hero-feature-icon">💰</div>
+          <h3 class="hero-feature-title">Flexible Pricing</h3>
+          <p class="hero-feature-desc">Hourly rates, recurring discounts, and promotional offers available</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="appContent" style="display: none;">
+    <!-- Dashboard Section -->
+    <section class="section">
+      <h2 class="section-title"><i class="fas fa-th-large"></i> Dashboard</h2>
+      <div id="dashboardContent">
+        <div class="empty-state">
+          <div class="spinner" style="width: 40px; height: 40px; margin: 0 auto 1rem;"></div>
+          <p>Loading your bookings...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Book Section -->
+    <section class="section">
+      <h2 class="section-title"><i class="fas fa-bolt"></i> Quick Book</h2>
+      <div class="quick-book-grid">
+        <div class="studio-option" onclick="selectStudio('podcast')" id="studio-podcast">
+          <div class="studio-icon">🎙️</div>
+          <div class="studio-name">Podcast Studio</div>
+          <div class="studio-price">$50/hour</div>
+        </div>
+        <div class="studio-option" onclick="selectStudio('video')" id="studio-video">
+          <div class="studio-icon">🎬</div>
+          <div class="studio-name">Video Studio</div>
+          <div class="studio-price">$75/hour</div>
+        </div>
+        <div class="studio-option" onclick="selectStudio('photo')" id="studio-photo">
+          <div class="studio-icon">📸</div>
+          <div class="studio-name">Photo Studio</div>
+          <div class="studio-price">$60/hour</div>
+        </div>
+        <div class="studio-option" onclick="selectStudio('music')" id="studio-music">
+          <div class="studio-icon">🎵</div>
+          <div class="studio-name">Music Studio</div>
+          <div class="studio-price">$80/hour</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="bookingDate">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Start Time</label>
+          <input type="time" class="form-input" id="bookingTime">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Duration (hours)</label>
+          <select class="form-input" id="bookingDuration">
+            <option value="1">1 hour</option>
+            <option value="2">2 hours</option>
+            <option value="3">3 hours</option>
+            <option value="4">4 hours</option>
+            <option value="8">Full day (8 hours)</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;" onclick="createBooking()" id="bookBtn">
+        <i class="fas fa-calendar-check"></i> Create Booking
+      </button>
+    </section>
+  </div>
+</div>
+
+<!-- Auth Modal -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuth()"><i class="fas fa-times"></i></button>
+    <h2 class="modal-title">Welcome to Leish Studio</h2>
+    <p class="modal-subtitle">Sign in or create an account to start booking</p>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login')" id="loginTab">Sign In</button>
+      <button class="auth-tab" onclick="switchAuthTab('register')" id="registerTab">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="loginEmail" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" required minlength="6">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" id="registerName" placeholder="John Doe" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="registerEmail" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="registerPassword" placeholder="••••••••" required minlength="6">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" class="form-input" id="registerConfirm" placeholder="••••••••" required minlength="6">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;" id="registerBtn">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+    </form>
+
+    <div class="divider"><span>or continue with</span></div>
+
+    <button class="btn btn-google" style="width: 100%;" onclick="handleGoogleSignIn()" id="googleBtn">
+      <i class="fab fa-google"></i> Google
+    </button>
+
+    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-secondary);">
+      By signing in, you agree to our Terms of Service and Privacy Policy
+    </p>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="max-width: 400px;">
+    <h2 class="modal-title" id="confirmTitle">Confirm Action</h2>
+    <p class="modal-subtitle" id="confirmMessage">Are you sure?</p>
+    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+      <button class="btn btn-secondary" style="flex: 1;" onclick="closeConfirmDialog()">Cancel</button>
+      <button class="btn btn-primary" style="flex: 1;" id="confirmAction">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================
+// 🔥 FIREBASE CONFIGURATION
+// ============================================
+// Replace these values with your Firebase project credentials
+// Get them from: Firebase Console > Project Settings > General > Your Apps > Web App
+
+const firebaseConfig = {
+apiKey: "AIzaSyAJW5673PRnn7dT5UxQnSIjOOYWgmLTImI",
+authDomain: "leish-ad836.firebaseapp.com",
+projectId: "leish-ad836",
+storageBucket: "leish-ad836.firebasestorage.app",
+messagingSenderId: "96865368970",
+appId: "1:96865368970:web:d9db7729c7b1b17778a673",
+};
+
+// For your deployed app (leish-ad836.web.app), the config would look like:
+// const firebaseConfig = {
+//   apiKey: "AIzaSy...",
+//   authDomain: "leish-ad836.firebaseapp.com",
+//   projectId: "leish-ad836",
+//   storageBucket: "leish-ad836.appspot.com",
+//   messagingSenderId: "123456789",
+//   appId: "1:123456789:web:abc123"
+// };
+
+// ============================================
+// FIREBASE INITIALIZATION
+// ============================================
+let app, auth, db;
+let currentUser = null;
+let selectedStudio = null;
+let firebaseReady = false;
+
+function initializeFirebase() {
+  try {
+    // Check if config is still placeholder
+    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+      updateFirebaseStatus('disconnected', '⚠️ Firebase not configured - Update firebaseConfig');
+      console.error('Firebase config not set. Please update firebaseConfig with your project credentials.');
+      return false;
+    }
+
+    app = firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    db = firebase.firestore();
+
+    // Enable offline persistence
+    db.enablePersistence().catch((err) => {
+      if (err.code === 'failed-precondition') {
+        console.warn('Firestore persistence unavailable: multiple tabs open');
+      } else if (err.code === 'unimplemented') {
+        console.warn('Firestore persistence not supported in this browser');
+      }
+    });
+
+    // Auth state listener
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        currentUser = user;
+        onUserSignedIn(user);
+      } else {
+        currentUser = null;
+        onUserSignedOut();
+      }
+    });
+
+    firebaseReady = true;
+    updateFirebaseStatus('connected', '✓ Firebase Connected');
+    return true;
+
+  } catch (error) {
+    console.error('Firebase initialization error:', error);
+    updateFirebaseStatus('disconnected', '✗ Firebase Error: ' + error.message);
+    return false;
+  }
+}
+
+function updateFirebaseStatus(status, message) {
+  const el = document.getElementById('firebaseStatus');
+  el.className = 'firebase-status ' + status;
+  el.innerHTML = status === 'loading'
+    ? '<div class="spinner"></div><span>' + message + '</span>'
+    : '<span>' + message + '</span>';
+
+  // Hide status bar after 5 seconds if connected
+  if (status === 'connected') {
+    setTimeout(() => {
+      el.style.transform = 'translateY(-100%)';
+      document.body.classList.remove('has-status-banner');
+    }, 3000);
+  }
+}
+
+// ============================================
+// AUTHENTICATION HANDLERS
+// ============================================
+function switchAuthTab(tab) {
+  const loginTab = document.getElementById('loginTab');
+  const registerTab = document.getElementById('registerTab');
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+
+  if (tab === 'login') {
+    loginTab.classList.add('active');
+    registerTab.classList.remove('active');
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+  } else {
+    loginTab.classList.remove('active');
+    registerTab.classList.add('active');
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+  }
+}
+
+async function handleLogin(event) {
+  event.preventDefault();
+
+  if (!firebaseReady) {
+    showToast('Firebase not configured. Please update the configuration.', 'error');
+    return;
+  }
+
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const btn = document.getElementById('loginBtn');
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Signing in...';
+
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+    closeAuth();
+    showToast('Welcome back! 🎉', 'success');
+  } catch (error) {
+    showToast(getErrorMessage(error.code), 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+  }
+}
+
+async function handleRegister(event) {
+  event.preventDefault();
+
+  if (!firebaseReady) {
+    showToast('Firebase not configured. Please update the configuration.', 'error');
+    return;
+  }
+
+  const name = document.getElementById('registerName').value;
+  const email = document.getElementById('registerEmail').value;
+  const password = document.getElementById('registerPassword').value;
+  const confirm = document.getElementById('registerConfirm').value;
+  const btn = document.getElementById('registerBtn');
+
+  if (password !== confirm) {
+    showToast('Passwords do not match', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Creating account...';
+
+  try {
+    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+
+    // Update profile with display name
+    await userCredential.user.updateProfile({ displayName: name });
+
+    // Create user document in Firestore
+    await db.collection('users').doc(userCredential.user.uid).set({
+      name: name,
+      email: email,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      bookings: []
+    });
+
+    closeAuth();
+    showToast('Account created successfully! Welcome! 🎉', 'success');
+  } catch (error) {
+    showToast(getErrorMessage(error.code), 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+  }
+}
+
+async function handleGoogleSignIn() {
+  if (!firebaseReady) {
+    showToast('Firebase not configured. Please update the configuration.', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('googleBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Connecting...';
+
+  try {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const result = await auth.signInWithPopup(provider);
+
+    // Check if new user and create document
+    const userDoc = await db.collection('users').doc(result.user.uid).get();
+    if (!userDoc.exists) {
+      await db.collection('users').doc(result.user.uid).set({
+        name: result.user.displayName,
+        email: result.user.email,
+        photoURL: result.user.photoURL,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        bookings: []
       });
-    </script>
-  </body>
+    }
+
+    closeAuth();
+    showToast('Welcome! 🎉', 'success');
+  } catch (error) {
+    if (error.code !== 'auth/popup-closed-by-user') {
+      showToast(getErrorMessage(error.code), 'error');
+    }
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fab fa-google"></i> Google';
+  }
+}
+
+async function logout() {
+  if (!firebaseReady) {
+    currentUser = null;
+    onUserSignedOut();
+    return;
+  }
+
+  try {
+    await auth.signOut();
+    showToast('Logged out successfully', 'success');
+  } catch (error) {
+    showToast('Error logging out', 'error');
+  }
+}
+
+function onUserSignedIn(user) {
+  showApp();
+
+  const displayName = user.displayName || user.email.split('@')[0];
+  const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+
+  document.getElementById('headerActions').innerHTML = `
+    <div class="user-info">
+      <div class="user-avatar">${initials}</div>
+      <span class="user-name">${displayName}</span>
+    </div>
+    <button class="btn btn-ghost" onclick="logout()" title="Logout">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  `;
+
+  loadUserBookings();
+}
+
+function onUserSignedOut() {
+  showLanding();
+  document.getElementById('headerActions').innerHTML = `
+    <button class="btn btn-primary" onclick="openAuth()">
+      <i class="fas fa-sign-in-alt"></i> Sign In
+    </button>
+  `;
+}
+
+// ============================================
+// BOOKING FUNCTIONS
+// ============================================
+function selectStudio(studio) {
+  document.querySelectorAll('.studio-option').forEach(el => {
+    el.classList.remove('selected');
+  });
+  document.getElementById('studio-' + studio).classList.add('selected');
+  selectedStudio = studio;
+}
+
+async function createBooking() {
+  if (!currentUser) {
+    showToast('Please sign in to create a booking', 'error');
+    openAuth();
+    return;
+  }
+
+  if (!selectedStudio) {
+    showToast('Please select a studio', 'error');
+    return;
+  }
+
+  const date = document.getElementById('bookingDate').value;
+  const time = document.getElementById('bookingTime').value;
+  const duration = document.getElementById('bookingDuration').value;
+
+  if (!date || !time) {
+    showToast('Please select a date and time', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('bookBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Creating booking...';
+
+  const studioInfo = {
+    podcast: { name: 'Podcast Studio', price: 50 },
+    video: { name: 'Video Studio', price: 75 },
+    photo: { name: 'Photo Studio', price: 60 },
+    music: { name: 'Music Studio', price: 80 }
+  };
+
+  const booking = {
+    userId: currentUser.uid,
+    userEmail: currentUser.email,
+    userName: currentUser.displayName || currentUser.email.split('@')[0],
+    studio: selectedStudio,
+    studioName: studioInfo[selectedStudio].name,
+    date: date,
+    time: time,
+    duration: parseInt(duration),
+    totalPrice: studioInfo[selectedStudio].price * parseInt(duration),
+    status: 'confirmed',
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
+
+  try {
+    await db.collection('bookings').add(booking);
+    showToast('Booking created successfully! 🎉', 'success');
+
+    // Reset form
+    selectedStudio = null;
+    document.querySelectorAll('.studio-option').forEach(el => el.classList.remove('selected'));
+    document.getElementById('bookingDate').value = '';
+    document.getElementById('bookingTime').value = '';
+    document.getElementById('bookingDuration').value = '1';
+
+    // Reload bookings
+    loadUserBookings();
+  } catch (error) {
+    console.error('Booking error:', error);
+    showToast('Failed to create booking: ' + error.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-calendar-check"></i> Create Booking';
+  }
+}
+
+async function loadUserBookings() {
+  if (!currentUser || !firebaseReady) {
+    document.getElementById('dashboardContent').innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-calendar-alt"></i>
+        <p>Sign in to view your bookings</p>
+      </div>
+    `;
+    return;
+  }
+
+  try {
+    const snapshot = await db.collection('bookings')
+      .where('userId', '==', currentUser.uid)
+      .orderBy('createdAt', 'desc')
+      .limit(10)
+      .get();
+
+    if (snapshot.empty) {
+      document.getElementById('dashboardContent').innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-calendar-alt"></i>
+          <p>No bookings yet. Book your first session below!</p>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '<div class="booking-grid">';
+    snapshot.forEach(doc => {
+      const b = doc.data();
+      const dateObj = new Date(b.date + 'T' + b.time);
+      const dateStr = dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      const timeStr = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+      html += `
+        <div class="booking-card">
+          <div class="booking-date">${dateStr}</div>
+          <div class="booking-time">${timeStr} - ${b.duration}hr</div>
+          <div class="booking-studio">${b.studioName}</div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="booking-status ${b.status}">${b.status}</span>
+            <span style="color: var(--accent); font-weight: 700;">$${b.totalPrice}</span>
+          </div>
+          <button class="btn btn-ghost" style="margin-top: 1rem; width: 100%; color: var(--danger);" onclick="cancelBooking('${doc.id}')">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      `;
+    });
+    html += '</div>';
+
+    document.getElementById('dashboardContent').innerHTML = html;
+
+  } catch (error) {
+    console.error('Load bookings error:', error);
+    document.getElementById('dashboardContent').innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Error loading bookings. Please try again.</p>
+      </div>
+    `;
+  }
+}
+
+function cancelBooking(bookingId) {
+  showConfirmDialog('Cancel Booking', 'Are you sure you want to cancel this booking?', async () => {
+    try {
+      await db.collection('bookings').doc(bookingId).delete();
+      showToast('Booking cancelled', 'success');
+      loadUserBookings();
+    } catch (error) {
+      showToast('Failed to cancel booking', 'error');
+    }
+  });
+}
+
+// ============================================
+// UI HELPERS
+// ============================================
+function showLanding() {
+  document.getElementById('landingPage').style.display = 'block';
+  document.getElementById('appContent').style.display = 'none';
+}
+
+function showApp() {
+  document.getElementById('landingPage').style.display = 'none';
+  document.getElementById('appContent').style.display = 'block';
+}
+
+function openAuth() {
+  document.getElementById('authModal').classList.add('active');
+}
+
+function closeAuth() {
+  document.getElementById('authModal').classList.remove('active');
+}
+
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+
+  const icon = type === 'success' ? 'check-circle' :
+               type === 'error' ? 'exclamation-circle' :
+               'info-circle';
+
+  toast.innerHTML = `
+    <i class="fas fa-${icon}"></i>
+    <span>${message}</span>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = 'slideIn 0.3s ease reverse forwards';
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
+function showConfirmDialog(title, message, onConfirm) {
+  const modal = document.getElementById('confirmModal');
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMessage').textContent = message;
+
+  const confirmBtn = document.getElementById('confirmAction');
+  confirmBtn.onclick = () => {
+    closeConfirmDialog();
+    onConfirm();
+  };
+
+  modal.classList.add('active');
+}
+
+function closeConfirmDialog() {
+  document.getElementById('confirmModal').classList.remove('active');
+}
+
+function getErrorMessage(code) {
+  const messages = {
+    'auth/email-already-in-use': 'This email is already registered',
+    'auth/invalid-email': 'Invalid email address',
+    'auth/operation-not-allowed': 'Operation not allowed',
+    'auth/weak-password': 'Password should be at least 6 characters',
+    'auth/user-disabled': 'This account has been disabled',
+    'auth/user-not-found': 'No account found with this email',
+    'auth/wrong-password': 'Incorrect password',
+    'auth/too-many-requests': 'Too many attempts. Please try again later',
+    'auth/network-request-failed': 'Network error. Check your connection',
+    'auth/popup-blocked': 'Popup was blocked. Allow popups and try again'
+  };
+  return messages[code] || 'An error occurred. Please try again.';
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
+    }
+  });
+});
+
+// Set default date to today
+document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('bookingDate').min = today;
+  document.getElementById('bookingDate').value = today;
+
+  // Initialize Firebase
+  initializeFirebase();
+});
+</script>
+
+</body>
 </html>
