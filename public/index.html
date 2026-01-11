@@ -1,77 +1,1341 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Leish Studio - Professional Studio Booking</title>
+
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
-:root{--bg-primary:#0a0a12;--bg-secondary:#12121f;--bg-card:#16162a;--bg-card-hover:#1e1e3a;--accent:#e94560;--accent-glow:rgba(233,69,96,0.4);--accent-secondary:#7c3aed;--text-primary:#ffffff;--text-secondary:#94a3b8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--border:rgba(255,255,255,0.08)}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Outfit',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden}.bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 20%,rgba(233,69,96,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(124,58,237,0.12) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(16,185,129,0.05) 0%,transparent 60%);pointer-events:none;z-index:0}.container{max-width:1400px;margin:0 auto;padding:1.5rem;position:relative;z-index:1}.hero-section{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 1rem}.hero-title{font-size:4rem;font-weight:800;background:linear-gradient(135deg,#fff,var(--accent),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.5rem;animation:fadeInUp 0.8s ease}.hero-subtitle{font-size:1.5rem;color:var(--text-secondary);margin-bottom:3rem;max-width:600px;animation:fadeInUp 0.8s ease 0.2s backwards}.hero-cta{display:flex;gap:1rem;animation:fadeInUp 0.8s ease 0.4s backwards}.hero-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:4rem;width:100%;max-width:1000px}.hero-feature{background:var(--bg-card);border-radius:20px;padding:2rem;border:1px solid var(--border);transition:all 0.3s ease;animation:fadeInUp 0.8s ease backwards}.hero-feature:nth-child(1){animation-delay:0.5s}.hero-feature:nth-child(2){animation-delay:0.6s}.hero-feature:nth-child(3){animation-delay:0.7s}.hero-feature:hover{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 8px 32px var(--accent-glow)}.hero-feature-icon{font-size:3rem;margin-bottom:1rem}.hero-feature-title{font-size:1.25rem;font-weight:700;margin-bottom:0.5rem}.hero-feature-desc{color:var(--text-secondary);font-size:0.9rem}.header{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;margin-bottom:2rem;border-bottom:1px solid var(--border)}.logo{display:flex;align-items:center;gap:0.75rem;cursor:pointer}.logo-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--accent),var(--accent-secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px var(--accent-glow)}.logo-text{font-size:1.75rem;font-weight:800;background:linear-gradient(135deg,#fff,#cbd5e1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.header-actions{display:flex;align-items:center;gap:1rem}.btn{padding:0.75rem 1.5rem;border-radius:999px;font-weight:600;border:none;cursor:pointer;transition:all 0.3s ease;font-size:1rem;display:inline-flex;align-items:center;gap:0.5rem}.btn-primary{background:linear-gradient(135deg,var(--accent),#d63d55);color:white;box-shadow:0 4px 20px var(--accent-glow)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px var(--accent-glow)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none}.btn-secondary{background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border)}.btn-secondary:hover{background:var(--bg-card-hover)}.btn-ghost{background:transparent;color:var(--text-secondary);padding:0.5rem}.btn-ghost:hover{color:var(--text-primary)}.btn-lg{padding:1rem 2rem;font-size:1.125rem}.section{background:var(--bg-card);border-radius:20px;padding:1.5rem;border:1px solid var(--border);margin-bottom:1.5rem;animation:fadeInUp 0.5s ease forwards}@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.section-title{font-size:1.125rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;color:var(--text-secondary)}.section-title i{color:var(--accent)}.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;visibility:hidden;transition:all 0.3s ease;padding:1rem}.modal-overlay.active{opacity:1;visibility:visible}.modal{background:var(--bg-card);border-radius:24px;padding:2rem;width:100%;max-width:500px;border:1px solid var(--border);transform:scale(0.9) translateY(20px);transition:transform 0.3s ease;position:relative;max-height:90vh;overflow-y:auto}.modal-overlay.active .modal{transform:scale(1) translateY(0)}.modal-close{position:absolute;top:1rem;right:1rem;width:36px;height:36px;border-radius:50%;background:var(--bg-secondary);border:none;color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease}.modal-close:hover{background:var(--accent);color:white}.modal-title{font-size:1.5rem;font-weight:700;margin-bottom:1.5rem;text-align:center}.modal-subtitle{text-align:center;color:var(--text-secondary);margin-bottom:1.5rem;font-size:0.9rem}.social-login-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin-bottom:1rem}.social-btn{padding:0.75rem 1rem;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;color:var(--text-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;font-weight:600;transition:all 0.3s ease;font-size:0.875rem}.social-btn:hover{background:var(--bg-card-hover);transform:translateY(-2px)}.social-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}.social-btn i{font-size:1.25rem}.social-btn.google{border-color:#DB4437}.social-btn.google:hover{border-color:#DB4437;box-shadow:0 4px 12px rgba(219,68,55,0.3)}.social-btn.apple{border-color:#fff}.social-btn.apple:hover{border-color:#fff;box-shadow:0 4px 12px rgba(255,255,255,0.2)}.social-btn.facebook{border-color:#1877F2}.social-btn.facebook:hover{border-color:#1877F2;box-shadow:0 4px 12px rgba(24,119,242,0.3)}.social-btn.instagram{border-color:#E4405F}.social-btn.instagram:hover{border-color:#E4405F;box-shadow:0 4px 12px rgba(228,64,95,0.3)}.form-group{margin-bottom:1rem}.form-label{display:block;font-size:0.875rem;font-weight:600;margin-bottom:0.5rem;color:var(--text-secondary)}.form-input{width:100%;padding:0.75rem 1rem;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;color:var(--text-primary);font-size:0.875rem;font-family:'Outfit',sans-serif}.form-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}.divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:var(--text-secondary);font-size:0.875rem}.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}.modal-footer{text-align:center;margin-top:1.5rem;color:var(--text-secondary);font-size:0.875rem}.modal-footer button{background:none;border:none;color:var(--accent);cursor:pointer;font-weight:600;text-decoration:underline}.toast-container{position:fixed;top:1rem;right:1rem;z-index:200;display:flex;flex-direction:column;gap:0.5rem}.toast{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;animation:slideIn 0.3s ease forwards;box-shadow:0 10px 40px rgba(0,0,0,0.4);min-width:300px}@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}.toast.success{border-left:4px solid var(--success)}.toast.error{border-left:4px solid var(--accent)}.toast.info{border-left:4px solid #3b82f6}.toast.warning{border-left:4px solid var(--warning)}.empty-state{text-align:center;padding:3rem 2rem;color:var(--text-secondary)}.empty-state i{font-size:3rem;margin-bottom:1rem;opacity:0.3}.user-badge{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;background:var(--bg-card);border-radius:999px;font-size:0.875rem}.user-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover}.loading{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.6s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (max-width:768px){.hero-title{font-size:2.5rem}.hero-subtitle{font-size:1.125rem}.hero-cta{flex-direction:column;width:100%}.hero-cta .btn{width:100%;justify-content:center}.hero-features{grid-template-columns:1fr}.social-login-grid{grid-template-columns:1fr}}
+:root {
+  --bg-primary: #0a0a12;
+  --bg-secondary: #12121f;
+  --bg-card: #16162a;
+  --bg-card-hover: #1e1e3a;
+  --accent: #e94560;
+  --accent-glow: rgba(233, 69, 96, 0.4);
+  --accent-secondary: #7c3aed;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(233, 69, 96, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Firebase Status Banner */
+.firebase-status {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.firebase-status.connected {
+  background: linear-gradient(90deg, #065f46, #047857);
+  color: #a7f3d0;
+}
+
+.firebase-status.disconnected {
+  background: linear-gradient(90deg, #7f1d1d, #991b1b);
+  color: #fecaca;
+}
+
+.firebase-status.loading {
+  background: linear-gradient(90deg, #78350f, #92400e);
+  color: #fde68a;
+}
+
+body.has-status-banner {
+  padding-top: 44px;
+}
+
+.hero-section {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, var(--accent), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  max-width: 600px;
+  animation: fadeInUp 0.8s ease 0.2s backwards;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  animation: fadeInUp 0.8s ease 0.4s backwards;
+}
+
+.hero-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.hero-feature {
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease backwards;
+}
+
+.hero-feature:nth-child(1) { animation-delay: 0.5s; }
+.hero-feature:nth-child(2) { animation-delay: 0.6s; }
+.hero-feature:nth-child(3) { animation-delay: 0.7s; }
+
+.hero-feature:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+.hero-feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-feature-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-feature-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.logo-text {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #d63d55);
+  color: white;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px var(--accent-glow);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-card-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+.section {
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.section-title i {
+  color: var(--accent);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 1rem;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid var(--border);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s ease;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.modal-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: 'Outfit', sans-serif;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 0.25rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.875rem;
+}
+
+.auth-tab.active {
+  background: var(--accent);
+  color: white;
+}
+
+.toast-container {
+  position: fixed;
+  top: 60px;
+  right: 1rem;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toast {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: slideIn 0.3s ease forwards;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  min-width: 300px;
+  max-width: 400px;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast.success { border-left: 4px solid var(--success); }
+.toast.error { border-left: 4px solid var(--danger); }
+.toast.info { border-left: 4px solid #3b82f6; }
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.3;
+}
+
+/* Booking Cards */
+.booking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.booking-card {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.booking-date {
+  font-size: 0.875rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.booking-time {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.booking-studio {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.booking-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.booking-status.confirmed {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--success);
+}
+
+.booking-status.pending {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--warning);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Quick Book Section */
+.quick-book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.studio-option {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.studio-option:hover {
+  border-color: var(--accent);
+}
+
+.studio-option.selected {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.1);
+}
+
+.studio-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.studio-name {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.studio-price {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-features {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .user-info {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+}
 </style>
 </head>
-<body>
+
+<body class="has-status-banner">
+<div id="firebaseStatus" class="firebase-status loading">
+  <div class="spinner"></div>
+  <span>Connecting to Firebase...</span>
+</div>
+
 <div class="bg-gradient"></div>
 <div class="toast-container" id="toastContainer"></div>
+
 <div class="container">
-<header class="header">
-<div class="logo" onclick="showLanding()">
-<div class="logo-icon"><i class="fas fa-film"></i></div>
-<span class="logo-text">Leish Studio</span>
+  <header class="header">
+    <div class="logo" onclick="showLanding()">
+      <div class="logo-icon"><i class="fas fa-film"></i></div>
+      <span class="logo-text">Leish Studio</span>
+    </div>
+    <div class="header-actions" id="headerActions">
+      <button class="btn btn-primary" onclick="openAuth()">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </div>
+  </header>
+
+  <div id="landingPage">
+    <div class="hero-section">
+      <h1 class="hero-title">Book Your Creative Space</h1>
+      <p class="hero-subtitle">Professional studio facilities with state-of-the-art equipment. Perfect for podcasts, interviews, and content creation.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" onclick="openAuth()">
+          <i class="fas fa-calendar-plus"></i> Book Now
+        </button>
+        <button class="btn btn-secondary btn-lg" onclick="showToast('Gallery coming soon!', 'info')">
+          <i class="fas fa-images"></i> View Gallery
+        </button>
+      </div>
+
+      <div class="hero-features">
+        <div class="hero-feature">
+          <div class="hero-feature-icon">🎥</div>
+          <h3 class="hero-feature-title">Pro Equipment</h3>
+          <p class="hero-feature-desc">Access to professional cameras, lighting, microphones, and more</p>
+        </div>
+        <div class="hero-feature">
+          <div class="hero-feature-icon">⚡</div>
+          <h3 class="hero-feature-title">Instant Booking</h3>
+          <p class="hero-feature-desc">Real-time availability and instant confirmation for your sessions</p>
+        </div>
+        <div class="hero-feature">
+          <div class="hero-feature-icon">💰</div>
+          <h3 class="hero-feature-title">Flexible Pricing</h3>
+          <p class="hero-feature-desc">Hourly rates, recurring discounts, and promotional offers available</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="appContent" style="display: none;">
+    <!-- Dashboard Section -->
+    <section class="section">
+      <h2 class="section-title"><i class="fas fa-th-large"></i> Dashboard</h2>
+      <div id="dashboardContent">
+        <div class="empty-state">
+          <div class="spinner" style="width: 40px; height: 40px; margin: 0 auto 1rem;"></div>
+          <p>Loading your bookings...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Book Section -->
+    <section class="section">
+      <h2 class="section-title"><i class="fas fa-bolt"></i> Quick Book</h2>
+      <div class="quick-book-grid">
+        <div class="studio-option" onclick="selectStudio('podcast')" id="studio-podcast">
+          <div class="studio-icon">🎙���</div>
+          <div class="studio-name">Podcast Studio</div>
+          <div class="studio-price">$50/hour</div>
+        </div>
+        <div class="studio-option" onclick="selectStudio('video')" id="studio-video">
+          <div class="studio-icon">🎬</div>
+          <div class="studio-name">Video Studio</div>
+          <div class="studio-price">$75/hour</div>
+        </div>
+        <div class="studio-option" onclick="selectStudio('photo')" id="studio-photo">
+          <div class="studio-icon">📸</div>
+          <div class="studio-name">Photo Studio</div>
+          <div class="studio-price">$60/hour</div>
+        </div>
+        <div class="studio-option" onclick="selectStudio('music')" id="studio-music">
+          <div class="studio-icon">🎵</div>
+          <div class="studio-name">Music Studio</div>
+          <div class="studio-price">$80/hour</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="bookingDate">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Start Time</label>
+          <input type="time" class="form-input" id="bookingTime">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Duration (hours)</label>
+          <select class="form-input" id="bookingDuration">
+            <option value="1">1 hour</option>
+            <option value="2">2 hours</option>
+            <option value="3">3 hours</option>
+            <option value="4">4 hours</option>
+            <option value="8">Full day (8 hours)</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;" onclick="createBooking()" id="bookBtn">
+        <i class="fas fa-calendar-check"></i> Create Booking
+      </button>
+    </section>
+  </div>
 </div>
-<div class="header-actions" id="headerActions">
-<button class="btn btn-primary" onclick="openAuth()"><i class="fas fa-sign-in-alt"></i> Sign In</button>
-</div>
-</header>
-<div id="landingPage">
-<div class="hero-section">
-<h1 class="hero-title">Book Your Creative Space</h1>
-<p class="hero-subtitle">Professional studio facilities with state-of-the-art equipment. Perfect for podcasts, interviews, and content creation.</p>
-<div class="hero-cta">
-<button class="btn btn-primary btn-lg" onclick="openAuth()"><i class="fas fa-calendar-plus"></i> Book Now</button>
-<button class="btn btn-secondary btn-lg" onclick="showToast('Gallery coming soon!', 'info')"><i class="fas fa-images"></i> View Gallery</button>
-</div>
-<div class="hero-features">
-<div class="hero-feature"><div class="hero-feature-icon">🎥</div><h3 class="hero-feature-title">Pro Equipment</h3><p class="hero-feature-desc">Access to professional cameras, lighting, microphones, and more</p></div>
-<div class="hero-feature"><div class="hero-feature-icon">⚡</div><h3 class="hero-feature-title">Instant Booking</h3><p class="hero-feature-desc">Real-time availability and instant confirmation for your sessions</p></div>
-<div class="hero-feature"><div class="hero-feature-icon">💰</div><h3 class="hero-feature-title">Flexible Pricing</h3><p class="hero-feature-desc">Hourly rates, recurring discounts, and promotional offers available</p></div>
-</div>
-</div>
-</div>
-<div id="appContent" style="display:none">
-<section class="section">
-<h2 class="section-title"><i class="fas fa-rocket"></i> Welcome to Leish Studio</h2>
-<p style="color:var(--text-secondary);margin-bottom:1rem">Your professional studio booking platform is ready!</p>
-<div class="empty-state"><i class="fas fa-calendar-check"></i><p>Start booking your creative sessions</p></div>
-</section>
-</div>
-</div>
+
+<!-- Auth Modal -->
 <div class="modal-overlay" id="authModal">
-<div class="modal">
-<button class="modal-close" onclick="closeAuth()"><i class="fas fa-times"></i></button>
-<h2 class="modal-title" id="authTitle">Welcome to Leish Studio</h2>
-<p class="modal-subtitle" id="authSubtitle">Sign in to start booking your studio sessions</p>
-<div class="social-login-grid">
-<button class="social-btn google" onclick="socialLogin('google')" id="googleBtn"><i class="fab fa-google"></i> Google</button>
-<button class="social-btn apple" onclick="socialLogin('apple')" id="appleBtn"><i class="fab fa-apple"></i> Apple</button>
-<button class="social-btn facebook" onclick="socialLogin('facebook')" id="facebookBtn"><i class="fab fa-facebook"></i> Facebook</button>
-<button class="social-btn instagram" onclick="socialLogin('instagram')" id="instagramBtn"><i class="fab fa-instagram"></i> Instagram</button>
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuth()"><i class="fas fa-times"></i></button>
+    <h2 class="modal-title">Welcome to Leish Studio</h2>
+    <p class="modal-subtitle">Sign in or create an account to start booking</p>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login')" id="loginTab">Sign In</button>
+      <button class="auth-tab" onclick="switchAuthTab('register')" id="registerTab">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="loginEmail" placeholder="your@email.com" required="">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" required="" minlength="6">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" id="registerName" placeholder="John Doe" required="">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="registerEmail" placeholder="your@email.com" required="">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="registerPassword" placeholder="••••••••" required="" minlength="6">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" class="form-input" id="registerConfirm" placeholder="••••••••" required="" minlength="6">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;" id="registerBtn">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+    </form>
+
+    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-secondary);">
+      By signing in, you agree to our Terms of Service and Privacy Policy
+    </p>
+  </div>
 </div>
-<div class="divider">or continue with email</div>
-<form onsubmit="handleAuth(event)" id="authForm">
-<div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="emailInput" placeholder="your@email.com" required></div>
-<div class="form-group"><label class="form-label">Password</label><input type="password" class="form-input" id="passwordInput" placeholder="••••••••" required minlength="6"></div>
-<button type="submit" class="btn btn-primary" id="authBtn" style="width:100%"><i class="fas fa-sign-in-alt"></i> <span id="authBtnText">Sign In</span></button>
-</form>
-<div class="modal-footer"><span id="switchText">Don't have an account?</span> <button type="button" onclick="toggleAuthMode()" id="switchBtn">Sign Up</button></div>
+
+<!-- Confirm Dialog -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="max-width: 400px;">
+    <h2 class="modal-title" id="confirmTitle">Confirm Action</h2>
+    <p class="modal-subtitle" id="confirmMessage">Are you sure?</p>
+    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+      <button class="btn btn-secondary" style="flex: 1;" onclick="closeConfirmDialog()">Cancel</button>
+      <button class="btn btn-primary" style="flex: 1;" id="confirmAction">Confirm</button>
+    </div>
+  </div>
 </div>
-</div>
+
+<!-- Firebase Modular SDK -->
 <script type="module">
-import{initializeApp}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged,GoogleAuthProvider,OAuthProvider,FacebookAuthProvider,signInWithPopup}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';const firebaseConfig={apiKey:"AIzaSyAJW5673PRnn7dT5UxQnSIjOOYWgmLTImI",authDomain:"leish-ad836.firebaseapp.com",projectId:"leish-ad836",storageBucket:"leish-ad836.firebasestorage.app",messagingSenderId:"96865368970",appId:"1:96865368970:web:d9db7729c7b1b17778a673",measurementId:"G-LMRV3MGP08"};const app=initializeApp(firebaseConfig);const auth=getAuth(app);const googleProvider=new GoogleAuthProvider();const appleProvider=new OAuthProvider('apple.com');const facebookProvider=new FacebookAuthProvider();window.firebaseAuth=auth;window.firebaseApp=app;onAuthStateChanged(auth,user=>{if(user){window.currentUser={uid:user.uid,email:user.email,name:user.displayName||user.email.split('@')[0],photoURL:user.photoURL};updateHeaderForLoggedInUser();console.log('User logged in:',user.email)}else{window.currentUser=null;updateHeaderForLoggedOutUser();console.log('User logged out')}});window.socialSignIn=async providerName=>{let provider;switch(providerName){case'google':provider=googleProvider;break;case'apple':provider=appleProvider;break;case'facebook':provider=facebookProvider;break;case'instagram':showToast('Instagram login requires additional setup. Please use email or other options.','info');return;default:showToast('Unknown provider','error');return}try{const result=await signInWithPopup(auth,provider);showToast(`Welcome ${result.user.displayName||'back'}! 🎉`,'success');closeAuth();showApp();return result.user}catch(error){console.error('Social login error:',error);let message='Social login failed';if(error.code==='auth/popup-closed-by-user'){message='Login cancelled'}else if(error.code==='auth/account-exists-with-different-credential'){message='Account exists with different login method'}else if(error.code==='auth/popup-blocked'){message='Popup blocked. Please allow popups for this site.'}else if(error.code==='auth/operation-not-allowed'){message=`${providerName.charAt(0).toUpperCase()+providerName.slice(1)} login not enabled. Please enable it in Firebase Console.`}showToast(message,'error');throw error}};window.signUp=async(email,password)=>{try{const userCredential=await createUserWithEmailAndPassword(auth,email,password);showToast('Account created successfully! 🎉','success');closeAuth();showApp();return userCredential.user}catch(error){console.error('Sign up error:',error);let message='Sign up failed';if(error.code==='auth/email-already-in-use'){message='Email already in use'}else if(error.code==='auth/weak-password'){message='Password should be at least 6 characters'}else if(error.code==='auth/invalid-email'){message='Invalid email address'}showToast(message,'error');throw error}};window.signIn=async(email,password)=>{try{const userCredential=await signInWithEmailAndPassword(auth,email,password);showToast('Welcome back! 🎬','success');closeAuth();showApp();return userCredential.user}catch(error){console.error('Sign in error:',error);let message='Sign in failed';if(error.code==='auth/wrong-password'||error.code==='auth/user-not-found'||error.code==='auth/invalid-credential'){message='Invalid email or password'}else if(error.code==='auth/invalid-email'){message='Invalid email address'}showToast(message,'error');throw error}};window.logout=async()=>{try{await signOut(auth);showToast('Logged out successfully','success');showLanding()}catch(error){console.error('Logout error:',error);showToast('Logout failed','error')}};console.log('Firebase initialized with social auth!');
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  onAuthStateChanged,
+  setPersistence,
+  inMemoryPersistence
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  query,
+  where,
+  orderBy,
+  limit,
+  serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+// ============================================
+// 🔥 FIREBASE CONFIGURATION
+// ============================================
+const firebaseConfig = {
+  apiKey: "AIzaSyAJW5673PRnn7dT5UxQnSIjOOYWgmLTImI",
+  authDomain: "leish-ad836.firebaseapp.com",
+  projectId: "leish-ad836",
+  storageBucket: "leish-ad836.firebasestorage.app",
+  messagingSenderId: "96865368970",
+  appId: "1:96865368970:web:d9db7729c7b1b17778a673",
+  measurementId: "G-LMRV3MGP08"
+};
+
+// ============================================
+// FIREBASE INITIALIZATION
+// ============================================
+let app, auth, db;
+let currentUser = null;
+let selectedStudio = null;
+let firebaseReady = false;
+
+async function initializeFirebase() {
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+
+    // Use in-memory persistence for sandboxed iframe (no localStorage access)
+    await setPersistence(auth, inMemoryPersistence);
+
+    // Auth state listener
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentUser = user;
+        onUserSignedIn(user);
+      } else {
+        currentUser = null;
+        onUserSignedOut();
+      }
+    });
+
+    firebaseReady = true;
+    updateFirebaseStatus('connected', '✓ Firebase Connected');
+    return true;
+
+  } catch (error) {
+    console.error('Firebase initialization error:', error);
+    updateFirebaseStatus('disconnected', '✗ Firebase Error: ' + error.message);
+    return false;
+  }
+}
+
+function updateFirebaseStatus(status, message) {
+  const el = document.getElementById('firebaseStatus');
+  el.className = 'firebase-status ' + status;
+  el.innerHTML = status === 'loading'
+    ? '<div class="spinner"></div><span>' + message + '</span>'
+    : '<span>' + message + '</span>';
+
+  // Hide status bar after 3 seconds if connected
+  if (status === 'connected') {
+    setTimeout(() => {
+      el.style.transform = 'translateY(-100%)';
+      document.body.classList.remove('has-status-banner');
+    }, 3000);
+  }
+}
+
+// ============================================
+// AUTHENTICATION HANDLERS
+// ============================================
+window.switchAuthTab = function(tab) {
+  const loginTab = document.getElementById('loginTab');
+  const registerTab = document.getElementById('registerTab');
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+
+  if (tab === 'login') {
+    loginTab.classList.add('active');
+    registerTab.classList.remove('active');
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+  } else {
+    loginTab.classList.remove('active');
+    registerTab.classList.add('active');
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+  }
+};
+
+window.handleLogin = async function(event) {
+  event.preventDefault();
+
+  if (!firebaseReady) {
+    showToast('Firebase not ready. Please wait...', 'error');
+    return;
+  }
+
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const btn = document.getElementById('loginBtn');
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Signing in...';
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    closeAuth();
+    showToast('Welcome back! 🎉', 'success');
+  } catch (error) {
+    showToast(getErrorMessage(error.code), 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+  }
+};
+
+window.handleRegister = async function(event) {
+  event.preventDefault();
+
+  if (!firebaseReady) {
+    showToast('Firebase not ready. Please wait...', 'error');
+    return;
+  }
+
+  const name = document.getElementById('registerName').value;
+  const email = document.getElementById('registerEmail').value;
+  const password = document.getElementById('registerPassword').value;
+  const confirm = document.getElementById('registerConfirm').value;
+  const btn = document.getElementById('registerBtn');
+
+  if (password !== confirm) {
+    showToast('Passwords do not match', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Creating account...';
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+    // Update profile with display name
+    await updateProfile(userCredential.user, { displayName: name });
+
+    // Create user document in Firestore
+    await setDoc(doc(db, 'users', userCredential.user.uid), {
+      name: name,
+      email: email,
+      createdAt: serverTimestamp(),
+      bookings: []
+    });
+
+    closeAuth();
+    showToast('Account created successfully! Welcome! 🎉', 'success');
+  } catch (error) {
+    showToast(getErrorMessage(error.code), 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+  }
+};
+
+window.logout = async function() {
+  if (!firebaseReady) {
+    currentUser = null;
+    onUserSignedOut();
+    return;
+  }
+
+  try {
+    await signOut(auth);
+    showToast('Logged out successfully', 'success');
+  } catch (error) {
+    showToast('Error logging out', 'error');
+  }
+};
+
+function onUserSignedIn(user) {
+  showApp();
+
+  const displayName = user.displayName || user.email.split('@')[0];
+  const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+
+  document.getElementById('headerActions').innerHTML = `
+    <div class="user-info">
+      <div class="user-avatar">${initials}</div>
+      <span class="user-name">${displayName}</span>
+    </div>
+    <button class="btn btn-ghost" onclick="logout()" title="Logout">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  `;
+
+  loadUserBookings();
+}
+
+function onUserSignedOut() {
+  showLanding();
+  document.getElementById('headerActions').innerHTML = `
+    <button class="btn btn-primary" onclick="openAuth()">
+      <i class="fas fa-sign-in-alt"></i> Sign In
+    </button>
+  `;
+}
+
+// ============================================
+// BOOKING FUNCTIONS
+// ============================================
+window.selectStudio = function(studio) {
+  document.querySelectorAll('.studio-option').forEach(el => {
+    el.classList.remove('selected');
+  });
+  document.getElementById('studio-' + studio).classList.add('selected');
+  selectedStudio = studio;
+};
+
+window.createBooking = async function() {
+  if (!currentUser) {
+    showToast('Please sign in to create a booking', 'error');
+    openAuth();
+    return;
+  }
+
+  if (!selectedStudio) {
+    showToast('Please select a studio', 'error');
+    return;
+  }
+
+  const date = document.getElementById('bookingDate').value;
+  const time = document.getElementById('bookingTime').value;
+  const duration = document.getElementById('bookingDuration').value;
+
+  if (!date || !time) {
+    showToast('Please select a date and time', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('bookBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Creating booking...';
+
+  const studioInfo = {
+    podcast: { name: 'Podcast Studio', price: 50 },
+    video: { name: 'Video Studio', price: 75 },
+    photo: { name: 'Photo Studio', price: 60 },
+    music: { name: 'Music Studio', price: 80 }
+  };
+
+  const booking = {
+    userId: currentUser.uid,
+    userEmail: currentUser.email,
+    userName: currentUser.displayName || currentUser.email.split('@')[0],
+    studio: selectedStudio,
+    studioName: studioInfo[selectedStudio].name,
+    date: date,
+    time: time,
+    duration: parseInt(duration),
+    totalPrice: studioInfo[selectedStudio].price * parseInt(duration),
+    status: 'confirmed',
+    createdAt: serverTimestamp()
+  };
+
+  try {
+    await addDoc(collection(db, 'bookings'), booking);
+    showToast('Booking created successfully! 🎉', 'success');
+
+    // Reset form
+    selectedStudio = null;
+    document.querySelectorAll('.studio-option').forEach(el => el.classList.remove('selected'));
+    document.getElementById('bookingDate').value = '';
+    document.getElementById('bookingTime').value = '';
+    document.getElementById('bookingDuration').value = '1';
+
+    // Reload bookings
+    loadUserBookings();
+  } catch (error) {
+    console.error('Booking error:', error);
+    showToast('Failed to create booking: ' + error.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-calendar-check"></i> Create Booking';
+  }
+};
+
+async function loadUserBookings() {
+  if (!currentUser || !firebaseReady) {
+    document.getElementById('dashboardContent').innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-calendar-alt"></i>
+        <p>Sign in to view your bookings</p>
+      </div>
+    `;
+    return;
+  }
+
+  try {
+    const bookingsRef = collection(db, 'bookings');
+    const q = query(
+      bookingsRef,
+      where('userId', '==', currentUser.uid),
+      orderBy('createdAt', 'desc'),
+      limit(10)
+    );
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      document.getElementById('dashboardContent').innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-calendar-alt"></i>
+          <p>No bookings yet. Book your first session below!</p>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '<div class="booking-grid">';
+    snapshot.forEach(docSnap => {
+      const b = docSnap.data();
+      const dateObj = new Date(b.date + 'T' + b.time);
+      const dateStr = dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      const timeStr = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+      html += `
+        <div class="booking-card">
+          <div class="booking-date">${dateStr}</div>
+          <div class="booking-time">${timeStr} - ${b.duration}hr</div>
+          <div class="booking-studio">${b.studioName}</div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="booking-status ${b.status}">${b.status}</span>
+            <span style="color: var(--accent); font-weight: 700;">$${b.totalPrice}</span>
+          </div>
+          <button class="btn btn-ghost" style="margin-top: 1rem; width: 100%; color: var(--danger);" onclick="cancelBooking('${docSnap.id}')">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      `;
+    });
+    html += '</div>';
+
+    document.getElementById('dashboardContent').innerHTML = html;
+
+  } catch (error) {
+    console.error('Load bookings error:', error);
+    document.getElementById('dashboardContent').innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Error loading bookings. Please try again.</p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">${error.message}</p>
+      </div>
+    `;
+  }
+}
+
+window.cancelBooking = function(bookingId) {
+  showConfirmDialog('Cancel Booking', 'Are you sure you want to cancel this booking?', async () => {
+    try {
+      await deleteDoc(doc(db, 'bookings', bookingId));
+      showToast('Booking cancelled', 'success');
+      loadUserBookings();
+    } catch (error) {
+      showToast('Failed to cancel booking', 'error');
+    }
+  });
+};
+
+// ============================================
+// UI HELPERS
+// ============================================
+window.showLanding = function() {
+  document.getElementById('landingPage').style.display = 'block';
+  document.getElementById('appContent').style.display = 'none';
+};
+
+function showApp() {
+  document.getElementById('landingPage').style.display = 'none';
+  document.getElementById('appContent').style.display = 'block';
+}
+
+window.openAuth = function() {
+  document.getElementById('authModal').classList.add('active');
+};
+
+window.closeAuth = function() {
+  document.getElementById('authModal').classList.remove('active');
+};
+
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+
+  const icon = type === 'success' ? 'check-circle' :
+               type === 'error' ? 'exclamation-circle' :
+               'info-circle';
+
+  toast.innerHTML = `
+    <i class="fas fa-${icon}"></i>
+    <span>${message}</span>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = 'slideIn 0.3s ease reverse forwards';
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
+function showConfirmDialog(title, message, onConfirm) {
+  const modal = document.getElementById('confirmModal');
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMessage').textContent = message;
+
+  const confirmBtn = document.getElementById('confirmAction');
+  confirmBtn.onclick = () => {
+    closeConfirmDialog();
+    onConfirm();
+  };
+
+  modal.classList.add('active');
+}
+
+window.closeConfirmDialog = function() {
+  document.getElementById('confirmModal').classList.remove('active');
+};
+
+function getErrorMessage(code) {
+  const messages = {
+    'auth/email-already-in-use': 'This email is already registered',
+    'auth/invalid-email': 'Invalid email address',
+    'auth/operation-not-allowed': 'Operation not allowed',
+    'auth/weak-password': 'Password should be at least 6 characters',
+    'auth/user-disabled': 'This account has been disabled',
+    'auth/user-not-found': 'No account found with this email',
+    'auth/wrong-password': 'Incorrect password',
+    'auth/invalid-credential': 'Invalid email or password',
+    'auth/too-many-requests': 'Too many attempts. Please try again later',
+    'auth/network-request-failed': 'Network error. Check your connection',
+    'auth/popup-blocked': 'Popup was blocked. Allow popups and try again'
+  };
+  return messages[code] || 'An error occurred. Please try again.';
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
+    }
+  });
+});
+
+// Set default date to today
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('bookingDate').min = today;
+document.getElementById('bookingDate').value = today;
+
+// Initialize Firebase
+initializeFirebase();
 </script>
-<script>
-let authMode='login';function showLanding(){document.getElementById('landingPage').style.display='block';document.getElementById('appContent').style.display='none'}function showApp(){document.getElementById('landingPage').style.display='none';document.getElementById('appContent').style.display='block'}function openAuth(){document.getElementById('authModal').classList.add('active')}function closeAuth(){document.getElementById('authModal').classList.remove('active')}function toggleAuthMode(){authMode=authMode==='login'?'signup':'login';if(authMode==='signup'){document.getElementById('authTitle').textContent='Create Your Account';document.getElementById('authSubtitle').textContent='Join Leish Studio and start booking';document.getElementById('authBtnText').textContent='Sign Up';document.getElementById('switchText').textContent='Already have an account?';document.getElementById('switchBtn').textContent='Sign In'}else{document.getElementById('authTitle').textContent='Welcome Back';document.getElementById('authSubtitle').textContent='Sign in to continue booking';document.getElementById('authBtnText').textContent='Sign In';document.getElementById('switchText').textContent="Don't have an account?";document.getElementById('switchBtn').textContent='Sign Up'}}async function socialLogin(provider){const btn=document.getElementById(`${provider}Btn`);if(btn){btn.disabled=true;const originalHTML=btn.innerHTML;btn.innerHTML='<span class="loading"></span>';try{await window.socialSignIn(provider)}catch(error){}finally{btn.disabled=false;btn.innerHTML=originalHTML}}}async function handleAuth(event){event.preventDefault();const email=document.getElementById('emailInput').value;const password=document.getElementById('passwordInput').value;const btn=document.getElementById('authBtn');btn.disabled=true;btn.innerHTML='<span class="loading"></span> Processing...';try{if(authMode==='signup'){await window.signUp(email,password)}else{await window.signIn(email,password)}}catch(error){}finally{btn.disabled=false;btn.innerHTML=`<i class="fas fa-sign-in-alt"></i> <span id="authBtnText">${authMode==='login'?'Sign In':'Sign Up'}</span>`}}function updateHeaderForLoggedInUser(){const user=window.currentUser;if(!user)return;const avatarHTML=user.photoURL?`<img src="${user.photoURL}" alt="${user.name}" class="user-avatar">`:`<i class="fas fa-user"></i>`;document.getElementById('headerActions').innerHTML=`<div class="user-badge">${avatarHTML}<span>${user.name}</span></div><button class="btn btn-ghost" onclick="logout()" title="Logout"><i class="fas fa-sign-out-alt"></i></button>`}function updateHeaderForLoggedOutUser(){document.getElementById('headerActions').innerHTML=`<button class="btn btn-primary" onclick="openAuth()"><i class="fas fa-sign-in-alt"></i> Sign In</button>`}function showToast(message,type='info'){const container=document.getElementById('toastContainer');const toast=document.createElement('div');toast.className=`toast ${type}`;const icon=type==='success'?'check-circle':type==='error'?'exclamation-circle':type==='warning'?'exclamation-triangle':'info-circle';toast.innerHTML=`<i class="fas fa-${icon}"></i><span>${message}</span>`;container.appendChild(toast);setTimeout(()=>{toast.style.animation='slideIn 0.3s ease reverse forwards';setTimeout(()=>toast.remove(),300)},3000)}document.querySelectorAll('.modal-overlay').forEach(overlay=>{overlay.addEventListener('click',e=>{if(e.target===overlay){overlay.classList.remove('active')}})});
-</script>
-</body>
-</html>
+
+
+
+
+</body></html>
